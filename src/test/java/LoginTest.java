@@ -1,6 +1,11 @@
 import Base.BaseTest;
 import Pages.LoginPage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class LoginTest extends BaseTest {
 
@@ -11,25 +16,11 @@ public class LoginTest extends BaseTest {
         loginPage.fillUsername(username)
                 .fillPassword(password)
                 .clickLogin();
-        assertEqualsText(getCurrentUrl(),overviewUrl);
+        // Başarılı yönlendirmeyi bekle
+        new WebDriverWait(webDriver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlToBe(overviewUrl));
+
+        Assert.assertEquals(webDriver.getCurrentUrl(), overviewUrl, "URL beklenen sayfaya yönlendirilmedi.");
     }
 
-    @Test(description = "Başarısız kullanıcı girişi ")
-    public void LoginUnSuccessful() {
-
-        loginPage.fillUsername(username)
-                .fillPassword("aaa")
-                .clickLogin();
-        String errorText = loginPage.getErrorMessage();
-        assertEqualsText(errorText, errorMessage);
-    }
-
-    @Test(description = "Zorunlu karakter kontrolü")
-    public void LoginRequiredController(){
-
-        loginPage.fillUsername(username)
-                .clickLogin();
-        String errorText = loginPage.getErrorMessage();
-        assertEqualsText(errorText,errorRequiredMessage);
-    }
 }

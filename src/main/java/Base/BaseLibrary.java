@@ -22,11 +22,6 @@ public class BaseLibrary extends Data{
         screenshot();
     }
 
-    public int randomNumber(int length){
-        Random random = new Random();
-        return random.nextInt(length);
-    }
-
     @Attachment(value = "Screenshot", type = "image/png")
     public byte[] screenshot() {
         return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);

@@ -24,16 +24,4 @@ public class LoginPage extends BaseTest {
         return this;
     }
 
-    @Step("Hata mesajı alınır")
-    public String getErrorMessage(){
-        String errorText = webDriver.findElement(By.cssSelector("[class='error']")).getText();
-        screenshot();
-        return errorText;
-    }
-
-    @Step("Register butonuna tıklanır")
-    public LoginPage clickRegister(){
-        webDriver.findElement(By.cssSelector("[href*='register.htm']")).click();
-        return this;
-    }
 }
